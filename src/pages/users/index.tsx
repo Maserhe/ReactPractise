@@ -4,7 +4,7 @@ import { Table, Tag, Space } from 'antd';
 import { UserModal } from './components/UserModal';
 import { useState } from 'react';
 
-const index = ({ users }) =>{
+const index = ({ users, dispatch }) =>{
 
   const [modalVisible, setModalVisible] = useState(false);
   const [recordValue, setRecord] = useState(undefined);
@@ -16,6 +16,20 @@ const index = ({ users }) =>{
   const editHandler =(record) => {
     setRecord(record);
   }
+
+  const onFinish = (values: any) => {
+    const id = recordValue.id;
+
+    dispatch({
+      type:'users/edit',
+      payload: {
+        id, 
+        values
+      }
+    });
+
+    // console.log('Finish:', values);
+  };
 
   const columns = [
     {
@@ -51,7 +65,7 @@ const index = ({ users }) =>{
 
   return(<div>
     <Table className='list-table' columns={columns} dataSource={users.data} rowKey="id"/>
-    <UserModal visible={modalVisible} handleCancel={handleCancel} record={recordValue}></UserModal>
+    <UserModal visible={modalVisible} handleCancel={handleCancel} record={recordValue} onFinish={onFinish}></UserModal>
 
   </div>);
 }

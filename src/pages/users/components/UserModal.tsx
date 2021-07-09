@@ -11,11 +11,17 @@ export const UserModal = (props) => {
     }, [props.visible]);
 
 
+    const onOk = ()=>{
+        form.submit();
+        props.handleCancel();
+    }
+
+
     return (
         <div>
-            <Modal title="弹出框" forceRender visible={props.visible} onOk={props.handleCancel} onCancel={props.handleCancel}>
+            <Modal title="弹出框" forceRender visible={props.visible} onOk={onOk} onCancel={props.handleCancel}>
                 
-                <Form name="basic" initialValues={props.record} form={form}>
+                <Form name="basic" initialValues={props.record} form={form} onFinish={props.onFinish}>
                     <Form.Item
                         label="Name"
                         name="name"

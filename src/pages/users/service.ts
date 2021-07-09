@@ -12,3 +12,17 @@ export const getRemoteList = async () =>{
           console.log(error);
     });
 }
+
+export const editRecord = async ({id, values}) => {
+  return request('api/users/' + id, {
+    method: 'put',
+    data: values,
+  })
+    .then(function(response) {
+      console.log('ok');
+    })
+    .catch(function(error) {
+      console.log('error');
+});
+
+}
